@@ -11,13 +11,10 @@ import subprocess
 import sys
 import traceback
 
-# Project root = parent of scripts/
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, PROJECT_ROOT)
 
 import config
-
-# Import after path is set; use same pattern as ingest_all
 from scripts.ingest_logging import setup_ingest_logging
 
 logger = setup_ingest_logging("ingest.one")
@@ -41,7 +38,6 @@ def main() -> None:
         sys.exit(1)
 
     try:
-        # JSON -> NDJSON
         logger.info("Converting %s -> NDJSON", json_path)
         with open(json_path, "rb") as f_in, open(ndjson_path, "w") as f_out:
             subprocess.run(["jq", "-c", ".records[]"], stdin=f_in, stdout=f_out, check=True)
@@ -61,7 +57,6 @@ def main() -> None:
             con.execute("DELETE FROM tenders_clean_all WHERE month = ?", [month])
             con.execute("DELETE FROM awards_clean_all WHERE month = ?", [month])
 
-            # procurement_method_details (OCDS) = modalidad in the portal; fallback to procurementMethod if details is null
             con.execute("""
             INSERT INTO tenders_clean_all
             SELECT

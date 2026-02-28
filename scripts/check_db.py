@@ -32,7 +32,6 @@ def main() -> None:
     try:
         print(f"=== {path} ===\n")
 
-        # Row counts
         t_count = con.execute("SELECT COUNT(*) FROM tenders_clean_all").fetchone()[0]
         a_count = con.execute("SELECT COUNT(*) FROM awards_clean_all").fetchone()[0]
         print(f"tenders_clean_all: {t_count} rows")
@@ -42,7 +41,6 @@ def main() -> None:
             print("No tenders. Ingest uses WHERE buyer.name = ? (Antigua). Ensure your JSON contains that buyer.")
             return
 
-        # Distinct buyers (should be one: Antigua)
         buyers = con.execute(
             "SELECT DISTINCT buyer_name FROM tenders_clean_all ORDER BY 1"
         ).fetchall()
@@ -51,7 +49,6 @@ def main() -> None:
             print(f"  - {b!r}")
         print()
 
-        # Modalities (procurement_method_details)
         mods = con.execute("""
             SELECT COALESCE(procurement_method_details, '(null)') AS m, COUNT(*) AS c
             FROM tenders_clean_all
@@ -67,7 +64,6 @@ def main() -> None:
                 print(f"  {c:6}  {m!r}")
         print()
 
-        # Months available
         months = con.execute(
             "SELECT DISTINCT month FROM tenders_clean_all WHERE month IS NOT NULL ORDER BY month"
         ).fetchall()

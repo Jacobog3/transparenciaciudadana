@@ -7,20 +7,13 @@ Portal de transparencia de contratación pública con datos abiertos Guatecompra
 
 ### Push to GitHub (first time)
 
-From the project root, if the folder is not yet a git repo:
+From project root:
 
 ```bash
 git init
 git add .
 git commit -m "Initial commit: Transparencia Ciudadana portal"
 git branch -M main
-git remote add origin https://github.com/Jacobog3/transparenciaciudadana.git
-git push -u origin main
-```
-
-If you already have a repo and only need to add the remote and push:
-
-```bash
 git remote add origin https://github.com/Jacobog3/transparenciaciudadana.git
 git push -u origin main
 ```

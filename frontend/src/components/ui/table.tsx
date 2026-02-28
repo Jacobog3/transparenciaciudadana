@@ -79,7 +79,6 @@ const TableCell = React.forwardRef<
 ));
 TableCell.displayName = "TableCell";
 
-/** Use for columns with long text (proveedor, title, modalidad) so the table does not deform. */
 export const TableCellTruncate = React.forwardRef<
   HTMLTableCellElement,
   React.TdHTMLAttributes<HTMLTableCellElement> & { title?: string }

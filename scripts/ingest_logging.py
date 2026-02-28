@@ -6,7 +6,6 @@ import os
 import sys
 from logging.handlers import TimedRotatingFileHandler
 
-# Allow running from project root (scripts/ingest.py) or as module
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
@@ -29,7 +28,6 @@ def setup_ingest_logging(name: str = "ingest") -> logging.Logger:
         datefmt="%Y-%m-%d %H:%M:%S",
     )
 
-    # File: rotate at midnight, keep 30 days
     fh = TimedRotatingFileHandler(
         log_path,
         when="midnight",
@@ -42,7 +40,6 @@ def setup_ingest_logging(name: str = "ingest") -> logging.Logger:
     fh.suffix = "%Y-%m-%d"
     logger.addHandler(fh)
 
-    # Console: INFO only
     ch = logging.StreamHandler(sys.stdout)
     ch.setLevel(logging.INFO)
     ch.setFormatter(formatter)

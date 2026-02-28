@@ -8,8 +8,6 @@ export function useFilterParams() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
-  // Stable string so params only change when URL query actually changes (avoids infinite useEffect loops)
   const queryString = searchParams.toString();
 
   const params = useMemo<FilterParams>(() => {

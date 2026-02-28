@@ -100,7 +100,6 @@ export default function CompetenciaMontosPage() {
         Evolución mensual del gasto, distribución por rangos legales y procesos con poca competencia.
       </p>
 
-      {/* KPIs */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
         <Card className="rounded-md border border-border shadow-sm">
           <div className="px-5 py-5">
@@ -125,7 +124,6 @@ export default function CompetenciaMontosPage() {
         </Card>
       </div>
 
-      {/* Chart: monthly trend */}
       <section className="mb-8">
         <h2 className="text-base font-semibold text-foreground border-l-4 border-primary pl-3 mb-3">
           Evolución mensual
@@ -179,7 +177,6 @@ export default function CompetenciaMontosPage() {
         )}
       </section>
 
-      {/* Bands */}
       {bands.length > 0 && (
         <section className="mb-8">
           <h2 className="text-base font-semibold text-foreground border-l-4 border-primary pl-3 mb-3">
@@ -240,7 +237,6 @@ export default function CompetenciaMontosPage() {
         </section>
       )}
 
-      {/* Low competition — collapsible */}
       {lowComp && lowComp.tenders.length > 0 && (
         <section>
           <h2 className="text-base font-semibold text-foreground border-l-4 border-primary pl-3 mb-3">

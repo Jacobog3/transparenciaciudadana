@@ -14,7 +14,6 @@ logger = logging.getLogger(__name__)
 from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 
-# Project root for config
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if ROOT not in sys.path:
     sys.path.insert(0, ROOT)

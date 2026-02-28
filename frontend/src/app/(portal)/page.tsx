@@ -94,7 +94,6 @@ export default function GeneralPage() {
         </div>
       )}
 
-      {/* KPIs */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
         <Card className="rounded-md border border-border shadow-sm">
           <div className="px-5 py-5">
@@ -122,7 +121,6 @@ export default function GeneralPage() {
         </Card>
       </div>
 
-      {/* Summary by year */}
       {summaryByYear.length > 0 && (
         <section className="mb-8">
           <h2 className="text-base font-semibold text-foreground border-l-4 border-primary pl-3 mb-3">
@@ -161,7 +159,6 @@ export default function GeneralPage() {
         </section>
       )}
 
-      {/* Section navigation cards */}
       <section>
         <h2 className="text-base font-semibold text-foreground border-l-4 border-primary pl-3 mb-3">
           Explorar

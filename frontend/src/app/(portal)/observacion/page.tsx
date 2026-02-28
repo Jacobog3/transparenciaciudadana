@@ -103,7 +103,6 @@ export default function ObservacionPage() {
         ¿Quién recibe el dinero público? Concentración de adjudicaciones y detalle por proveedor.
       </p>
 
-      {/* KPIs — first thing the user sees */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
         <Card className="rounded-md border border-border shadow-sm">
           <div className="px-5 py-5">
@@ -130,7 +129,6 @@ export default function ObservacionPage() {
         </Card>
       </div>
 
-      {/* Supplier detail — moved UP for visibility */}
       <section className="mb-8">
         <h2 className="text-base font-semibold text-foreground border-l-4 border-primary pl-3 mb-1">
           Detalle por proveedor
@@ -209,7 +207,6 @@ export default function ObservacionPage() {
         )}
       </section>
 
-      {/* Full supplier ranking */}
       <section>
         <h2 className="text-base font-semibold text-foreground border-l-4 border-primary pl-3 mb-1">
           Ranking de proveedores por monto

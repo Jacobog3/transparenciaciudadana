@@ -45,7 +45,6 @@ export function PortalLayout({ children }: { children: React.ReactNode }) {
   const years = params.years?.length ? params.years : filters.years;
   return (
     <div className="flex flex-col min-h-screen bg-background">
-      {/* Guatemala-inspired top stripe: blue-white-blue */}
       <div className="flex h-1.5 w-full">
         <div className="flex-1 bg-primary" />
         <div className="w-1/3 bg-white" />
@@ -54,7 +53,6 @@ export function PortalLayout({ children }: { children: React.ReactNode }) {
 
       <header className="shrink-0 border-b border-border bg-card">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Brand row */}
           <div className="flex items-center gap-3 py-4">
             <Image
               src="/logo.png"
@@ -73,7 +71,6 @@ export function PortalLayout({ children }: { children: React.ReactNode }) {
             </div>
           </div>
 
-          {/* Navigation */}
           <nav className="flex gap-1 -mb-px overflow-x-auto scrollbar-none">
             {NAV.map(({ href, label }) => {
               const active = pathname === href;

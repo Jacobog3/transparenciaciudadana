@@ -126,7 +126,6 @@ export function SortableHead({
     >
       <span className={cn("inline-flex items-center gap-1.5 min-w-0 w-full", alignRight && "justify-end")}>
         <span className={alignRight ? "truncate text-right" : "truncate"}>{label}</span>
-        {/* Reserve fixed space so column width does not change when sort icon appears */}
         <span className="inline-flex items-center justify-center w-[var(--sort-icon-size)] shrink-0 text-muted-foreground">
           {isActive && sortDir ? <SortIcon dir={sortDir} /> : <span className="invisible" aria-hidden><SortIcon dir="asc" /></span>}
         </span>

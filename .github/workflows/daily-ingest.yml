@@ -1,12 +1,10 @@
-# Daily data refresh: download Guatecompras OCDS, ingest, swap, commit lake.duckdb.
-# Uses existing scripts: download_guatecompras.py, ingest_all.py.
+# Daily refresh: download_guatecompras.py → ingest_all.py → swap → commit lake.duckdb
 name: Daily ingest
 
 on:
   schedule:
-    # Run at 06:00 UTC every day
     - cron: "0 6 * * *"
-  workflow_dispatch: # Allow manual run
+  workflow_dispatch:
 
 jobs:
   ingest:

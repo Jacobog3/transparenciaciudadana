@@ -1,6 +1,3 @@
-/**
- * Spanish labels for API column names (tenders + awards).
- */
 export const TENDER_COLUMN_LABELS: Record<string, string> = {
   ocid: "OCID",
   nog: "NOG",

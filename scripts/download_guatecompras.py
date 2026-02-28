@@ -79,7 +79,6 @@ def _lock_cleanup() -> None:
     _release_lock()
 
 
-# Register cleanup on normal exit and on SIGTERM/SIGINT
 atexit.register(_lock_cleanup)
 signal.signal(signal.SIGTERM, lambda s, f: (_release_lock(), sys.exit(0)))
 signal.signal(signal.SIGINT, lambda s, f: (_release_lock(), sys.exit(0)))
@@ -115,7 +114,6 @@ def download_month(year: int, month: int, pause_sec: float, dry_run: bool) -> tu
 
     os.makedirs(config.DATA_DIR, exist_ok=True)
 
-    # Backup existing file before overwriting
     if os.path.isfile(path):
         r = subprocess.run(
             [sys.executable, os.path.join(PROJECT_ROOT, "scripts", "backup_before_replace.py"), path],
@@ -126,14 +124,12 @@ def download_month(year: int, month: int, pause_sec: float, dry_run: bool) -> tu
         if r.returncode != 0:
             return False, f"Backup failed: {r.stderr or r.stdout}"
 
-    # Download to temp then move (avoid corrupt file if interrupted)
     tmp_path = path + ".tmp"
     try:
         req = urllib.request.Request(url, headers={"User-Agent": "TransparenciaCiudadana/1.0 (data transparency)"})
         with urllib.request.urlopen(req, timeout=300) as resp:
             code = resp.getcode()
             if code == 204:
-                # No content in this response; do not overwrite. Manual download may still have data.
                 return False, "204 No content (try manual download)"
             if code != 200:
                 return False, f"HTTP {code}"
@@ -149,7 +145,6 @@ def download_month(year: int, month: int, pause_sec: float, dry_run: bool) -> tu
             if os.path.isfile(tmp_path):
                 os.remove(tmp_path)
             return False, "Empty response body"
-        # Server sends ZIP containing the JSON; extract and save as .json
         with open(tmp_path, "rb") as f:
             is_zip = f.read(2) == b"PK"
         if is_zip:
@@ -166,7 +161,6 @@ def download_month(year: int, month: int, pause_sec: float, dry_run: bool) -> tu
             os.remove(tmp_path)
             _record_downloaded_at(filename)
             return True, f"OK (ZIP) {json_size / (1024*1024):.1f} MB"
-        # Not ZIP: save as-is
         os.replace(tmp_path, path)
         _record_downloaded_at(filename)
         return True, f"OK {size / (1024*1024):.1f} MB"
@@ -206,7 +200,6 @@ def main() -> None:
         print("--from-year must be <= --to-year", file=sys.stderr)
         sys.exit(1)
 
-    # Single instance: exit if another download is running
     if not args.dry_run:
         _acquire_lock()
 

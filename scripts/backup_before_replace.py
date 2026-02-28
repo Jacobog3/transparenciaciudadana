@@ -11,7 +11,6 @@ import shutil
 import sys
 from datetime import datetime, timezone
 
-# Project root = parent of scripts/
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, PROJECT_ROOT)
 
@@ -27,7 +26,6 @@ def main():
         path = os.path.join(PROJECT_ROOT, path)
 
     if not os.path.isfile(path):
-        # Nothing to backup
         sys.exit(0)
 
     os.makedirs(config.BACKUPS_DIR, exist_ok=True)
