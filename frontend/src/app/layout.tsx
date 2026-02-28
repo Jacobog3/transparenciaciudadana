@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { DM_Sans } from "next/font/google";
 import { Analytics } from "@/components/analytics";
 import { CookieConsent } from "@/components/cookie-consent";
@@ -42,7 +43,9 @@ export default function RootLayout({
       <body className="min-h-screen font-sans antialiased">
         {children}
         <CookieConsent />
-        <Analytics />
+        <Suspense fallback={null}>
+          <Analytics />
+        </Suspense>
       </body>
     </html>
   );
