@@ -1,0 +1,13 @@
+[project]
+name = "transparencia-antigua"
+version = "0.1.0"
+description = "Transparency portal for Municipalidad de Antigua Guatemala (Guatecompras OCDS)"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "duckdb>=1.0.0",
+    "streamlit>=1.28.0",
+]
+
+[tool.setuptools]
+py-modules = ["config"]

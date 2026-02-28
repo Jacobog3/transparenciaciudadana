@@ -1,0 +1,1 @@
+self.__NEXT_FONT_MANIFEST="{\"pages\":{},\"app\":{\"/Users/jacobo/Documents/Proyectos/Transparencia Ciudadana/frontend/src/app/layout\":[\"static/media/7ab938503e4547a1-s.p.woff2\",\"static/media/13971731025ec697-s.p.woff2\"]},\"appUsingSizeAdjust\":true,\"pagesUsingSizeAdjust\":false}"

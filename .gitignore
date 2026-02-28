@@ -1,0 +1,17 @@
+# Cursor IDE – keep rules and config local (do not commit)
+.cursor/
+
+# Project context (local / not shared)
+docs/CONTEXT.md
+
+# Data and DB (large files, regenerated); keep folder in repo
+data/
+!data/.gitkeep
+*.duckdb
+*.ndjson
+*.json
+.env
+venv/
+.venv/
+__pycache__/
+*.pyc
