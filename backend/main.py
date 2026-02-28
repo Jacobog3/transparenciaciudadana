@@ -23,15 +23,19 @@ from backend.db import get_connection, month_filter
 
 app = FastAPI(title="Transparencia Antigua API", version="0.1.0")
 
+_extra_origins = [o.strip() for o in os.getenv("CORS_EXTRA_ORIGINS", "").split(",") if o.strip()]
+_allowed_origins = [
+    "https://transparenciaciudadana.org",
+    "https://www.transparenciaciudadana.org",
+    "https://transparenciaciudadana.vercel.app",
+    *_extra_origins,
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "https://transparenciaciudadana.org",
-        "https://www.transparenciaciudadana.org",
-        "https://transparenciaciudadana.vercel.app",
-    ],
+    # Allow localhost + private LAN IPs on any port for local Next.js dev and mobile testing.
+    allow_origin_regex=r"^https?://(localhost|127\.0\.0\.1|0\.0\.0\.0|10\.\d{1,3}\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}|172\.(?:1[6-9]|2\d|3[0-1])\.\d{1,3}\.\d{1,3})(:\d+)?$",
+    allow_origins=_allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

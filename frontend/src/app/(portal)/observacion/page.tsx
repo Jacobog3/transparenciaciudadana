@@ -161,41 +161,43 @@ export default function ObservacionPage() {
                     )}
                   </p>
                 </div>
-                <Table>
-                  <colgroup>
-                    <col style={{ width: "14%" }} />
-                    <col style={{ width: "42%" }} />
-                    <col style={{ width: "18%" }} />
-                    <col style={{ width: "26%" }} />
-                  </colgroup>
-                  <TableHeader>
-                    <TableRow className="hover:bg-transparent border-b border-border">
-                      <TableHead className="font-medium text-foreground">NOG</TableHead>
-                      <TableHead className="font-medium text-foreground">Título</TableHead>
-                      <TableHead className="font-medium text-foreground">Fecha</TableHead>
-                      <TableHead className="text-right font-medium text-foreground">Monto (Q)</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {supplierDetail.length === 0 && !loading && (
-                      <TableRow>
-                        <TableCell colSpan={4} className="text-muted-foreground text-center py-8">
-                          Sin adjudicaciones para este proveedor.
-                        </TableCell>
+                <div>
+                  <Table>
+                    <colgroup>
+                      <col style={{ width: "14%" }} />
+                      <col style={{ width: "42%" }} />
+                      <col style={{ width: "18%" }} />
+                      <col style={{ width: "26%" }} />
+                    </colgroup>
+                    <TableHeader>
+                      <TableRow className="hover:bg-transparent border-b border-border">
+                        <TableHead className="font-medium text-foreground">NOG</TableHead>
+                        <TableHead className="font-medium text-foreground">Título</TableHead>
+                        <TableHead className="font-medium text-foreground">Fecha</TableHead>
+                        <TableHead className="text-right font-medium text-foreground">Monto (Q)</TableHead>
                       </TableRow>
-                    )}
-                    {supplierDetail.map((row, i) => (
-                      <TableRow key={row.nog + String(i)}>
-                        <TableCell>{row.nog}</TableCell>
-                        <TableCellTruncate title={row.title ?? undefined}>{row.title ?? "—"}</TableCellTruncate>
-                        <TableCell>{row.award_date ?? "—"}</TableCell>
-                        <TableCell className="text-right tabular-nums">
-                          {row.amount != null ? `Q ${row.amount.toLocaleString("es-GT", { minimumFractionDigits: 2 })}` : "—"}
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                    </TableHeader>
+                    <TableBody>
+                      {supplierDetail.length === 0 && !loading && (
+                        <TableRow>
+                          <TableCell colSpan={4} className="text-muted-foreground text-center py-8">
+                            Sin adjudicaciones para este proveedor.
+                          </TableCell>
+                        </TableRow>
+                      )}
+                      {supplierDetail.map((row, i) => (
+                        <TableRow key={row.nog + String(i)}>
+                          <TableCell>{row.nog}</TableCell>
+                          <TableCellTruncate title={row.title ?? undefined}>{row.title ?? "—"}</TableCellTruncate>
+                          <TableCell>{row.award_date ?? "—"}</TableCell>
+                          <TableCell className="text-right tabular-nums">
+                            {row.amount != null ? `Q ${row.amount.toLocaleString("es-GT", { minimumFractionDigits: 2 })}` : "—"}
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </div>
               </Card>
             )}
             <p className="text-xs text-muted-foreground mt-2">
@@ -218,38 +220,40 @@ export default function ObservacionPage() {
           <SearchInput value={searchSuppliers} onChange={setSearchSuppliers} placeholder="Buscar proveedor…" className="max-w-xs" />
         </div>
         <Card className="rounded-md border border-border shadow-sm overflow-hidden">
-          <Table>
-            <colgroup>
-              <col style={{ width: "50%" }} />
-              <col style={{ width: "22%" }} />
-              <col style={{ width: "28%" }} />
-            </colgroup>
-            <TableHeader>
-              <TableRow className="hover:bg-transparent border-b border-border">
-                <SortableHead label="Proveedor" sortKey="proveedor" currentSortKey={sortKey} sortDir={sortDir} onSort={() => toggleSort("proveedor")} className="bg-muted/50 font-medium text-foreground" />
-                <SortableHead label="Adjudicaciones" sortKey="adjudicaciones" currentSortKey={sortKey} sortDir={sortDir} onSort={() => toggleSort("adjudicaciones")} className="bg-muted/50 font-medium text-foreground" alignRight />
-                <SortableHead label="Total (Q)" sortKey="total_q" currentSortKey={sortKey} sortDir={sortDir} onSort={() => toggleSort("total_q")} className="bg-muted/50 font-medium text-foreground" alignRight />
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {suppliers.length === 0 && !loading && (
-                <TableRow>
-                  <TableCell colSpan={3} className="text-muted-foreground text-center py-8">
-                    No hay datos de adjudicaciones.
-                  </TableCell>
+          <div>
+            <Table>
+              <colgroup>
+                <col style={{ width: "50%" }} />
+                <col style={{ width: "22%" }} />
+                <col style={{ width: "28%" }} />
+              </colgroup>
+              <TableHeader>
+                <TableRow className="hover:bg-transparent border-b border-border">
+                  <SortableHead label="Proveedor" sortKey="proveedor" currentSortKey={sortKey} sortDir={sortDir} onSort={() => toggleSort("proveedor")} className="bg-muted/50 font-medium text-foreground" />
+                  <SortableHead label="Adjudicaciones" sortKey="adjudicaciones" currentSortKey={sortKey} sortDir={sortDir} onSort={() => toggleSort("adjudicaciones")} className="bg-muted/50 font-medium text-foreground" alignRight />
+                  <SortableHead label="Total (Q)" sortKey="total_q" currentSortKey={sortKey} sortDir={sortDir} onSort={() => toggleSort("total_q")} className="bg-muted/50 font-medium text-foreground" alignRight />
                 </TableRow>
-              )}
-              {sortedSuppliers.slice(0, 50).map((row) => (
-                <TableRow key={row.proveedor}>
-                  <TableCellTruncate className="font-medium" title={row.proveedor}>{row.proveedor}</TableCellTruncate>
-                  <TableCell className="text-right tabular-nums">{row.adjudicaciones}</TableCell>
-                  <TableCell className="text-right tabular-nums">
-                    Q {row.total_q.toLocaleString("es-GT", { minimumFractionDigits: 2 })}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {suppliers.length === 0 && !loading && (
+                  <TableRow>
+                    <TableCell colSpan={3} className="text-muted-foreground text-center py-8">
+                      No hay datos de adjudicaciones.
+                    </TableCell>
+                  </TableRow>
+                )}
+                {sortedSuppliers.slice(0, 50).map((row) => (
+                  <TableRow key={row.proveedor}>
+                    <TableCellTruncate className="font-medium" title={row.proveedor}>{row.proveedor}</TableCellTruncate>
+                    <TableCell className="text-right tabular-nums">{row.adjudicaciones}</TableCell>
+                    <TableCell className="text-right tabular-nums">
+                      Q {row.total_q.toLocaleString("es-GT", { minimumFractionDigits: 2 })}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </Card>
       </section>
     </>

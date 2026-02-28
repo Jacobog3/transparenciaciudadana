@@ -12,10 +12,13 @@ import {
 
 const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID ?? "";
 const GA_ADS_ID = process.env.NEXT_PUBLIC_GA_ADS_ID ?? "";
+const GA_ADSENSE_CLIENT = process.env.NEXT_PUBLIC_GA_ADSENSE_CLIENT ?? "";
 
 const hasAnalytics = GA_MEASUREMENT_ID.startsWith("G-");
 const hasAds = GA_ADS_ID.startsWith("AW-");
+const hasAdSense = GA_ADSENSE_CLIENT.startsWith("ca-pub-");
 const scriptId = hasAnalytics ? GA_MEASUREMENT_ID : hasAds ? GA_ADS_ID : "";
+const hasTagScript = Boolean(scriptId);
 
 export function Analytics() {
   const pathname = usePathname();
@@ -42,24 +45,35 @@ export function Analytics() {
     gtag("event", "page_view", { page_path: fullPath });
   }, [consent, fullPath]);
 
-  if (!scriptId || consent !== CONSENT_ACCEPTED) return null;
+  if ((!hasTagScript && !hasAdSense) || consent !== CONSENT_ACCEPTED) return null;
 
   return (
     <>
-      <Script
-        src={`https://www.googletagmanager.com/gtag/js?id=${scriptId}`}
-        strategy="afterInteractive"
-      />
-      <Script id="gtag-config" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){ dataLayer.push(arguments); }
-          window.gtag = gtag;
-          gtag('js', new Date());
-          ${hasAnalytics ? `gtag('config', '${GA_MEASUREMENT_ID}', { send_page_view: false });` : ""}
-          ${hasAds ? `gtag('config', '${GA_ADS_ID}');` : ""}
-        `}
-      </Script>
+      {hasTagScript && (
+        <>
+          <Script
+            src={`https://www.googletagmanager.com/gtag/js?id=${scriptId}`}
+            strategy="afterInteractive"
+          />
+          <Script id="gtag-config" strategy="afterInteractive">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){ dataLayer.push(arguments); }
+              window.gtag = gtag;
+              gtag('js', new Date());
+              ${hasAnalytics ? `gtag('config', '${GA_MEASUREMENT_ID}', { send_page_view: false });` : ""}
+              ${hasAds ? `gtag('config', '${GA_ADS_ID}');` : ""}
+            `}
+          </Script>
+        </>
+      )}
+      {hasAdSense && (
+        <Script
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${GA_ADSENSE_CLIENT}`}
+          strategy="afterInteractive"
+          crossOrigin="anonymous"
+        />
+      )}
     </>
   );
 }

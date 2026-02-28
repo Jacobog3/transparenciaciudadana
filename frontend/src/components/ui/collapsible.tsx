@@ -39,8 +39,9 @@ export function Collapsible({
 export function CollapsibleTrigger({
   children,
   className,
+  showIndicator = true,
   ...props
-}: React.ButtonHTMLAttributes<HTMLButtonElement>) {
+}: React.ButtonHTMLAttributes<HTMLButtonElement> & { showIndicator?: boolean }) {
   const ctx = React.useContext(CollapsibleContext);
   if (!ctx) return null;
   return (
@@ -55,7 +56,27 @@ export function CollapsibleTrigger({
       {...props}
     >
       {children}
-      <span className="text-muted-foreground">{ctx.open ? "▲" : "▼"}</span>
+      {showIndicator && (
+        <span
+          aria-hidden="true"
+          className={cn(
+            "ml-2 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-all duration-200",
+            ctx.open ? "bg-muted text-foreground" : "bg-muted/50",
+          )}
+        >
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={cn("h-3.5 w-3.5 transition-transform duration-200", ctx.open ? "rotate-180" : "rotate-0")}
+          >
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+        </span>
+      )}
     </button>
   );
 }

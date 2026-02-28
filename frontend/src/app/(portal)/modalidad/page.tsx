@@ -131,10 +131,11 @@ export default function ModalidadPage() {
             {Array.from(new Set(topByModality.map((x) => x.modalidad))).map((mod) => (
               <Collapsible key={mod} defaultOpen={false}>
                 <Card className="rounded-md border border-border shadow-sm overflow-hidden">
-                  <CollapsibleTrigger className="w-full text-left px-4 py-3 hover:bg-muted/30 transition-colors flex items-center gap-3 text-sm group">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="shrink-0 text-muted-foreground group-data-[state=open]:rotate-90 transition-transform"><path d="m9 18 6-6-6-6"/></svg>
-                    <span className="font-medium text-foreground truncate">{mod}</span>
-                    <span className="text-muted-foreground text-xs ml-auto shrink-0">Top 10</span>
+                  <CollapsibleTrigger className="w-full text-left px-4 py-3 hover:bg-muted/30 transition-colors text-sm">
+                    <div className="min-w-0">
+                      <span className="block truncate font-medium text-foreground">{mod}</span>
+                      <span className="text-xs text-muted-foreground">Top 10</span>
+                    </div>
                   </CollapsibleTrigger>
                   <CollapsibleContent>
                     <div className="border-t border-border">

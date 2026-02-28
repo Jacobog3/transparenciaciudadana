@@ -1,7 +1,16 @@
-const API_BASE =
-  typeof window !== "undefined"
-    ? (process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000")
-    : process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+const localHostPattern = /^(localhost|127\.0\.0\.1|0\.0\.0\.0|10\.|192\.168\.|172\.(1[6-9]|2\d|3[0-1])\.)/;
+
+function resolveApiBase(): string {
+  if (process.env.NEXT_PUBLIC_API_URL) return process.env.NEXT_PUBLIC_API_URL;
+  if (typeof window === "undefined") return "http://127.0.0.1:8000";
+  const host = window.location.hostname;
+  if (localHostPattern.test(host)) {
+    return `http://${host}:8000`;
+  }
+  return "http://127.0.0.1:8000";
+}
+
+const API_BASE = resolveApiBase();
 
 export type FilterParams = {
   years?: string[];

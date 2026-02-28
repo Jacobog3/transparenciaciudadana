@@ -475,9 +475,11 @@ export function Dashboard() {
                 <Collapsible key={mod} defaultOpen={false}>
                   <Card className="rounded-md border border-border shadow-sm overflow-hidden">
                     <CardContent className="p-0">
-                      <CollapsibleTrigger className="w-full text-left px-4 py-3 hover:bg-muted/50 transition-colors flex items-center justify-between text-sm">
-                        <span className="font-medium text-foreground">{mod}</span>
-                        <span className="text-muted-foreground text-xs">Top 10 por monto</span>
+                      <CollapsibleTrigger className="w-full text-left px-4 py-3 hover:bg-muted/50 transition-colors text-sm">
+                        <div className="min-w-0">
+                          <span className="block font-medium text-foreground">{mod}</span>
+                          <span className="text-xs text-muted-foreground">Top 10 por monto</span>
+                        </div>
                       </CollapsibleTrigger>
                       <CollapsibleContent>
                         <Table>
@@ -636,7 +638,7 @@ export function Dashboard() {
               Procesos
             </h2>
             <Card className="rounded-md border border-border shadow-sm overflow-hidden">
-              <div className="overflow-x-auto max-h-96">
+              <div className="max-h-96 overflow-y-auto">
                 <Table>
                   <TableHeader>
                     <TableRow>
@@ -667,7 +669,7 @@ export function Dashboard() {
               Adjudicaciones
             </h2>
             <Card className="rounded-md border border-border shadow-sm overflow-hidden">
-              <div className="overflow-x-auto max-h-96">
+              <div className="max-h-96 overflow-y-auto">
                 <Table>
                   <TableHeader>
                     <TableRow>

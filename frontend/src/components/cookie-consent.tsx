@@ -29,14 +29,14 @@ export function CookieConsent() {
           Usamos cookies de medicion para Analytics y Ads. Puedes aceptar o rechazar.
           Al continuar sin aceptar, el portal funciona igual.
         </p>
-        <div className="flex shrink-0 items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2 flex-wrap sm:flex-nowrap">
           <button
             type="button"
             onClick={() => {
               writeConsentStatus(CONSENT_REJECTED);
               setConsent(CONSENT_REJECTED);
             }}
-            className="h-9 rounded-md border border-border px-3 text-xs font-medium text-foreground hover:bg-muted"
+            className="h-9 rounded-md border border-border px-3 text-xs font-medium text-foreground hover:bg-muted w-full sm:w-auto"
           >
             Rechazar
           </button>
@@ -46,7 +46,7 @@ export function CookieConsent() {
               writeConsentStatus(CONSENT_ACCEPTED);
               setConsent(CONSENT_ACCEPTED);
             }}
-            className="h-9 rounded-md bg-primary px-3 text-xs font-semibold text-primary-foreground hover:opacity-95"
+            className="h-9 rounded-md bg-primary px-3 text-xs font-semibold text-primary-foreground hover:opacity-95 w-full sm:w-auto"
           >
             Aceptar cookies
           </button>

@@ -83,8 +83,9 @@ That means `pip3 install` ran **without** the venv active, so packages went to y
 1. **Data & DB:** Activate the venv, put monthly JSON in `data/`, run ingestion (see Option B steps 2–3).
 2. **Backend:** From project root:
    ```bash
-   pip install -r backend/requirements.txt
-   uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
+   source .venv/bin/activate
+   pip3 install -r requirements.txt
+   python3 -m uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
    ```
 3. **Frontend:** In another terminal (Node 18+ required):
    ```bash
@@ -94,6 +95,13 @@ That means `pip3 install` ran **without** the venv active, so packages went to y
    npm run dev
    ```
    Open [http://localhost:3000](http://localhost:3000). Set `NEXT_PUBLIC_API_URL=http://127.0.0.1:8000` in `.env` if the API runs on another host/port.
+
+For mobile testing on the same Wi-Fi network:
+```bash
+cd frontend
+npm run dev:lan
+```
+Then open `http://<IP-DE-TU-PC>:3000` on your phone. Keep backend running on `0.0.0.0:8000`.
 
 ### Option B — Streamlit (legacy)
 
@@ -150,7 +158,7 @@ Deploy the `frontend/` app to a static/Node host. Recommended: **Vercel** (same 
 2. Set **Root Directory** to `frontend`.
 3. Add environment variables:
    - `NEXT_PUBLIC_API_URL` = full URL of your API (e.g. `https://api.transparenciaciudadana.org`).
-   - Optionally: `NEXT_PUBLIC_GA_MEASUREMENT_ID`, `NEXT_PUBLIC_GA_ADS_ID` (see below).
+   - Optionally: `NEXT_PUBLIC_GA_MEASUREMENT_ID`, `NEXT_PUBLIC_GA_ADS_ID`, `NEXT_PUBLIC_GA_ADSENSE_CLIENT` (see below).
 4. Deploy. Vercel will run `npm run build` and serve the app.
 
 ### Backend (FastAPI) and data
@@ -181,7 +189,12 @@ The site includes a cookie consent banner; tracking scripts are loaded only afte
 1. In [Google Ads](https://ads.google.com), go to **Tools → Conversions** and create a conversion (e.g. “Visit transparency portal” or a specific action). Copy the **Conversion ID** (format `AW-XXXXXXXXXX`).
 2. Add an environment variable in your deployment:
    - `NEXT_PUBLIC_GA_ADS_ID=AW-XXXXXXXXXX`
-3. Redeploy. The gtag script will load both GA4 and Google Ads; you can use the same tag for conversion tracking and remarketing.
+   - `NEXT_PUBLIC_GA_ADS_CONVERSION_LABEL=XXXXXXXXXXXXXXX` (conversion label)
+3. If you will monetize with AdSense, also set:
+   - `NEXT_PUBLIC_GA_ADSENSE_CLIENT=ca-pub-0000000000000000`
+4. Redeploy. The gtag script will load both GA4 and Google Ads; you can use the same tag for conversion tracking and remarketing.
+4. (Recommended) Configure `ADS_TXT_LINE` so `/ads.txt` serves your publisher line.
+5. (Recommended) Add `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` with your Search Console token.
 
 You can set only one, or both. Local development: leave the variables unset or omit them from `.env`; the portal works normally and no analytics script is injected.
 
