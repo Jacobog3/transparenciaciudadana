@@ -166,6 +166,7 @@ After deployment, run ingestion on a schedule (cron) and swap `lake_next.duckdb`
 ## Google Analytics and Google Ads
 
 The frontend can send traffic data to **Google Analytics 4 (GA4)** and **Google Ads** when the corresponding IDs are set. If they are not set, no script is loaded.
+The site includes a cookie consent banner; tracking scripts are loaded only after user acceptance.
 
 ### Google Analytics 4
 
@@ -183,6 +184,21 @@ The frontend can send traffic data to **Google Analytics 4 (GA4)** and **Google 
 3. Redeploy. The gtag script will load both GA4 and Google Ads; you can use the same tag for conversion tracking and remarketing.
 
 You can set only one, or both. Local development: leave the variables unset or omit them from `.env`; the portal works normally and no analytics script is injected.
+
+## Branding and footer configuration
+
+Optional frontend env vars (`frontend/.env`) for multi-municipality branding and professional footer contact:
+
+- `NEXT_PUBLIC_MUNICIPALITY_NAME`
+- `NEXT_PUBLIC_MUNICIPALITY_SHORT_NAME`
+- `NEXT_PUBLIC_MUNICIPALITY_REGION`
+- `NEXT_PUBLIC_MUNICIPALITY_TAGLINE`
+- `NEXT_PUBLIC_MUNICIPALITY_ACCENT_COLOR`
+- `NEXT_PUBLIC_SITE_LOGO_PATH`
+- `NEXT_PUBLIC_MUNICIPALITY_LOGO_LIGHT_PATH`
+- `NEXT_PUBLIC_MUNICIPALITY_LOGO_DARK_PATH`
+- `NEXT_PUBLIC_SITE_URL`
+- `NEXT_PUBLIC_CONTACT_EMAIL`
 
 ## Config
 

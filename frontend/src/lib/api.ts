@@ -18,9 +18,13 @@ function searchParams(p: FilterParams): string {
 }
 
 export async function fetchFilters() {
-  const r = await fetch(`${API_BASE}/api/filters`);
-  if (!r.ok) throw new Error("Failed to fetch filters");
-  return r.json() as Promise<{ months: string[]; years: string[] }>;
+  try {
+    const r = await fetch(`${API_BASE}/api/filters`);
+    if (!r.ok) return { months: [], years: [] };
+    return r.json() as Promise<{ months: string[]; years: string[] }>;
+  } catch {
+    return { months: [], years: [] };
+  }
 }
 
 export type Diagnostic = {
@@ -141,9 +145,13 @@ export async function fetchAwards(params: FilterParams, limit = 100) {
 }
 
 export async function fetchDataReference() {
-  const r = await fetch(`${API_BASE}/api/data-reference`);
-  if (!r.ok) return {};
-  return r.json() as Promise<{ last_downloaded?: string; package_date_range?: string }>;
+  try {
+    const r = await fetch(`${API_BASE}/api/data-reference`);
+    if (!r.ok) return {};
+    return r.json() as Promise<{ last_downloaded?: string; package_date_range?: string }>;
+  } catch {
+    return {};
+  }
 }
 
 export async function fetchSummaryByYear() {

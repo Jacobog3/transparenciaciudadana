@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import { Analytics } from "@/components/analytics";
+import { CookieConsent } from "@/components/cookie-consent";
+import { MUNICIPALITY_FULL, MUNICIPALITY_NAME, SITE_LOGO_PATH } from "@/lib/brand";
 import "./globals.css";
 
 const dmSans = DM_Sans({
@@ -12,12 +14,12 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://transparenciaciudadana.org"),
-  title: "Transparencia Ciudadana — Antigua Guatemala",
-  description: "Portal de transparencia ciudadana de la Municipalidad de Antigua Guatemala. Contratación pública con datos abiertos de Guatecompras OCDS.",
-  icons: { icon: "/logo.png" },
+  title: `Transparencia Ciudadana — ${MUNICIPALITY_NAME}`,
+  description: `Portal de transparencia ciudadana de ${MUNICIPALITY_FULL}. Contratación pública con datos abiertos de Guatecompras OCDS.`,
+  icons: { icon: SITE_LOGO_PATH },
   openGraph: {
     title: "Transparencia Ciudadana",
-    description: "Portal de transparencia de contratación pública. Datos abiertos Guatecompras OCDS.",
+    description: `Portal de transparencia de contratación pública para ${MUNICIPALITY_NAME}. Datos abiertos Guatecompras OCDS.`,
     url: "https://transparenciaciudadana.org",
     siteName: "Transparencia Ciudadana",
     locale: "es_GT",
@@ -39,6 +41,7 @@ export default function RootLayout({
     <html lang="es" className={dmSans.variable}>
       <body className="min-h-screen font-sans antialiased">
         {children}
+        <CookieConsent />
         <Analytics />
       </body>
     </html>
